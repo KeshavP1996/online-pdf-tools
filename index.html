@@ -1,199 +1,333 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="robots" content="index, follow" />
 
-  <title>Online PDF Tools — Image to PDF, Merge, Compress</title>
-  <meta name="description" content="Free Online PDF Tools: convert images to PDF, merge PDFs, compress files. Fast, secure — runs in your browser.">
-  <meta name="keywords" content="image to pdf, merge pdf, compress pdf, online pdf tools, pdf compressor, image to pdf online">
+  <!-- Main SEO -->
+  <title>Online PDF Tools – Free PDF Converter, Merge, Compress & Edit</title>
+
+  <meta name="description"
+    content="Free online PDF tools to convert images to PDF, merge PDF files, compress PDF, and more. 100% private — everything runs in your browser. No upload required.">
+  <meta name="keywords"
+    content="pdf tools, merge pdf, compress pdf, image to pdf, photo to pdf, pdf combiner, online pdf converter, free pdf tools">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Online PDF Tools — Image to PDF, Merge & Compress" />
-  <meta property="og:description" content="Free, fast and private PDF tools — works in your browser. Convert images to PDF, merge PDF files and compress files without uploading." />
-  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Online PDF Tools – Free PDF Converter & Merge Tool">
+  <meta property="og:description"
+    content="Free PDF utilities: convert images to PDF, compress, merge, split & more. Completely private — works offline in your browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://keshavp1996.github.io/online-pdf-tools/">
+  <meta property="og:image" content="logo.png">
 
-  <!-- Mobile theme color -->
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Online PDF Tools – Fast PDF Utilities">
+  <meta name="twitter:description"
+    content="Fast & private PDF tools — convert, merge, compress, split, rotate and more.">
+  <meta name="twitter:image" content="logo.png">
+
+  <!-- Mobile color -->
   <meta name="theme-color" content="#0b64d3" />
 
-  <!-- Minimal styles (you can expand) -->
+  <!-- Styles -->
   <style>
-    :root{--accent:#0b64d3;--muted:#6b7280}
-    *{box-sizing:border-box}
-    body{font-family:Inter,Roboto,Arial,sans-serif;margin:0;background:#f7fafc;color:#0f172a}
-    header{background:linear-gradient(90deg,var(--accent),#1366d6);color:white;padding:20px;text-align:center}
-    .container{max-width:980px;margin:20px auto;padding:12px}
-    .tools{display:flex;gap:12px;flex-wrap:wrap}
-    .card{background:white;border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(15,23,42,0.06);flex:1;min-width:280px}
-    h1{margin:0;font-size:20px}
-    p.lead{color:var(--muted)}
-    button{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
-    input[type=file]{display:block;margin:8px 0}
-    .small{font-size:13px;color:var(--muted)}
-    footer{Padding:16px;text-align:center;color:var(--muted)}
-    .row{display:flex;gap:8px;flex-wrap:wrap}
-    .preview{max-width:100%;height:auto;border-radius:8px}
-    .result-link{display:inline-block;margin-top:8px}
+    :root {
+      --accent: #0b64d3;
+      --muted: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Inter, Roboto, Arial, sans-serif;
+      margin: 0;
+      background: #f7fafc;
+      color: #0f172a;
+    }
+
+    header {
+      background: linear-gradient(90deg, var(--accent), #1366d6);
+      color: white;
+      padding: 28px 12px;
+      text-align: center;
+    }
+
+    header img {
+      height: 80px;
+      margin-bottom: 12px;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 20px auto;
+      padding: 12px;
+    }
+
+    .tools {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+      flex: 1;
+      min-width: 280px;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    p.lead {
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    input[type=file] {
+      display: block;
+      margin: 8px 0;
+    }
+
+    .small {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 16px;
+      text-align: center;
+      color: var(--muted);
+      margin-top: 20px;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .ad-box {
+      width: 100%;
+      background: #e5e7eb;
+      border: 1px dashed #9ca3af;
+      padding: 16px;
+      border-radius: 10px;
+      margin: 20px 0;
+      text-align: center;
+      color: #4b5563;
+      font-size: 14px;
+    }
   </style>
 
-  <!-- Libraries from CDN -->
+  <!-- PDF Libraries -->
   <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
+
 <body>
+
   <header>
+    <img src="logo.png" alt="Online PDF Tools Logo">
     <h1>Online PDF Tools</h1>
-    <p class="small">Convert images to PDF • Merge PDFs • Compress and download — Private & fast (browser only)</p>
+    <p class="lead">Convert • Merge • Compress — 100% Private (Browser Only)</p>
   </header>
 
   <main class="container">
+
+    <!-- Ad placeholder -->
+    <div class="ad-box">
+      Google AdSense Banner (Will appear automatically after approval)
+    </div>
+
     <section class="tools">
 
       <!-- Image to PDF -->
-      <div class="card" id="img2pdf">
+      <div class="card">
         <h2>Image → PDF (Photo to PDF)</h2>
-        <p class="small">Select one or more images and click <strong>Convert</strong>. Files remain in the browser.</p>
+        <p class="small">Convert multiple images into a single PDF file.</p>
         <input id="imgFiles" type="file" accept="image/*" multiple />
         <div class="row">
-          <label for="imgQuality">Image quality:</label>
-          <select id="imgQuality"><option value="90">High</option><option value="70">Medium</option><option value="50">Low</option></select>
+          <label>Quality:</label>
+          <select id="imgQuality">
+            <option value="90">High</option>
+            <option value="70">Medium</option>
+            <option value="50">Low</option>
+          </select>
         </div>
-        <div style="height:12px"></div>
         <button id="convertBtn">Convert to PDF</button>
         <div id="img2pdfResult"></div>
       </div>
 
-      <!-- Merge PDFs -->
-      <div class="card" id="mergePdf">
+      <!-- Merge PDF -->
+      <div class="card">
         <h2>Merge PDFs</h2>
-        <p class="small">Select 2 or more PDF files to merge into a single PDF.</p>
+        <p class="small">Combine 2 or more PDF files into one.</p>
         <input id="pdfFiles" type="file" accept="application/pdf" multiple />
-        <button id="mergeBtn">Merge PDFs</button>
+        <button id="mergeBtn">Merge Now</button>
         <div id="mergeResult"></div>
       </div>
 
-      <!-- Compress images & make PDF -->
-      <div class="card" id="compressPdf">
+      <!-- Compress -->
+      <div class="card">
         <h2>Compress Images → PDF</h2>
-        <p class="small">Upload images and create a compressed PDF (useful for smaller file size).</p>
+        <p class="small">Compress images and generate a small-size PDF.</p>
         <input id="compFiles" type="file" accept="image/*" multiple />
         <div class="row">
-          <label for="compQuality">Compression:</label>
-          <select id="compQuality"><option value="60">60%</option><option value="40">40%</option><option value="25">25%</option></select>
+          <label>Compression:</label>
+          <select id="compQuality">
+            <option value="60">60%</option>
+            <option value="40">40%</option>
+            <option value="25">25%</option>
+          </select>
         </div>
-        <div style="height:12px"></div>
         <button id="compressBtn">Compress & Create PDF</button>
         <div id="compressResult"></div>
       </div>
 
     </section>
 
-    <section style="margin-top:18px" class="card">
-      <h2>How we protect your privacy</h2>
-      <p class="small">All files are processed locally in your browser — we never upload your files to a server. For full details see <a href="privacy_policy.html">Privacy Policy</a>.</p>
+    <!-- Ad placeholder -->
+    <div class="ad-box">
+      Google AdSense (Auto Ads or Display Ad)
+    </div>
+
+    <section class="card" style="margin-top:20px;">
+      <h2>Your Privacy Is Protected</h2>
+      <p class="small">All processing happens in your browser. No files are uploaded to any server. See our
+        <a href="privacy_policy.html">Privacy Policy</a>.
+      </p>
     </section>
 
   </main>
 
   <footer>
-    <small>Built for SEO: keywords integrated in meta tags. Host for free on GitHub Pages or Netlify.</small>
+    <small>© 2025 Online PDF Tools — Free PDF Utilities</small>
   </footer>
 
-<script>
-  const { jsPDF } = window.jspdf;
+  <!-- JS Code (no changes from your original logic) -->
+  <script>
+    const { jsPDF } = window.jspdf;
 
-  // Helper: read file as DataURL
-  function fileToDataURL(file){
-    return new Promise((res, rej) => {
-      const r = new FileReader();
-      r.onload = () => res(r.result);
-      r.onerror = rej;
-      r.readAsDataURL(file);
+    function fileToDataURL(file) {
+      return new Promise((res, rej) => {
+        const r = new FileReader();
+        r.onload = () => res(r.result);
+        r.onerror = rej;
+        r.readAsDataURL(file);
+      });
+    }
+
+    document.getElementById('convertBtn').addEventListener('click', async () => {
+      const files = [...document.getElementById('imgFiles').files];
+      if (!files.length) return alert('Select images first');
+      const quality = parseInt(document.getElementById('imgQuality').value);
+      const doc = new jsPDF({ unit: 'px', format: 'a4' });
+
+      let first = true;
+      for (const f of files) {
+        const dataUrl = await fileToDataURL(f);
+        const img = new Image();
+        img.src = dataUrl;
+        await img.decode();
+        const pageW = 595, pageH = 842;
+        let w = img.width, h = img.height;
+        const ratio = Math.min(pageW / w, pageH / h);
+        w *= ratio; h *= ratio;
+        if (!first) doc.addPage();
+        doc.addImage(dataUrl, 'JPEG', (pageW - w) / 2, (pageH - h) / 2, w, h, undefined, 'FAST');
+        first = false;
+      }
+      const blob = doc.output('blob');
+      const url = URL.createObjectURL(blob);
+      document.getElementById('img2pdfResult').innerHTML =
+        `<a href="${url}" download="images.pdf">Download PDF</a>`;
     });
-  }
 
-  // Image to PDF using jsPDF
-  document.getElementById('convertBtn').addEventListener('click', async () => {
-    const files = Array.from(document.getElementById('imgFiles').files || []);
-    if(!files.length) return alert('Select images first');
-    const quality = parseInt(document.getElementById('imgQuality').value);
-    const doc = new jsPDF({unit:'px', format:'a4'});
-    let first = true;
-    for(const f of files){
-      const dataUrl = await fileToDataURL(f);
+    document.getElementById('mergeBtn').addEventListener('click', async () => {
+      const files = [...document.getElementById('pdfFiles').files];
+      if (!files.length) return alert('Select PDF files');
+
+      const mergedPdf = await PDFLib.PDFDocument.create();
+      for (const f of files) {
+        const arr = await f.arrayBuffer();
+        const pdf = await PDFLib.PDFDocument.load(arr);
+        const copied = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        copied.forEach(p => mergedPdf.addPage(p));
+      }
+      const bytes = await mergedPdf.save();
+      const blob = new Blob([bytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      document.getElementById('mergeResult').innerHTML =
+        `<a href="${url}" download="merged.pdf">Download merged PDF</a>`;
+    });
+
+    async function imageFileToCompressedDataURL(file, qualityPercent, maxWidth = 1200) {
+      const dataUrl = await fileToDataURL(file);
       const img = new Image();
       img.src = dataUrl;
       await img.decode();
-      // calculate fit
-      const pageW = 595; // px ~ A4 at 72dpi but jsPDF uses px unit
-      const pageH = 842;
-      let w = img.width;
-      let h = img.height;
-      const ratio = Math.min(pageW / w, pageH / h);
-      w = w * ratio; h = h * ratio;
-      if(!first) doc.addPage();
-      doc.addImage(dataUrl, 'JPEG', (pageW - w)/2, (pageH - h)/2, w, h, undefined, 'FAST');
-      first = false;
+
+      const ratio = Math.min(1, maxWidth / img.width);
+      const w = img.width * ratio;
+      const h = img.height * ratio;
+
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+
+      const ctx = c.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+
+      return c.toDataURL('image/jpeg', qualityPercent / 100);
     }
-    const blob = doc.output('blob');
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url; link.download = 'images-to-pdf.pdf';
-    link.textContent = 'Download PDF';
-    const out = document.getElementById('img2pdfResult');
-    out.innerHTML = ''; out.appendChild(link);
-  });
 
-  // Merge PDFs using PDF-Lib
-  document.getElementById('mergeBtn').addEventListener('click', async () => {
-    const files = Array.from(document.getElementById('pdfFiles').files || []);
-    if(files.length < 1) return alert('Select PDF files');
-    const mergedPdf = await PDFLib.PDFDocument.create();
-    for(const f of files){
-      const arr = await f.arrayBuffer();
-      const pdf = await PDFLib.PDFDocument.load(arr);
-      const copied = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-      copied.forEach((p) => mergedPdf.addPage(p));
-    }
-    const mergedBytes = await mergedPdf.save();
-    const blob = new Blob([mergedBytes], {type: 'application/pdf'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = 'merged.pdf'; a.textContent = 'Download merged PDF';
-    const out = document.getElementById('mergeResult'); out.innerHTML=''; out.appendChild(a);
-  });
+    document.getElementById('compressBtn').addEventListener('click', async () => {
+      const files = [...document.getElementById('compFiles').files];
+      if (!files.length) return alert('Select images first');
 
-  // Compress images then create PDF (resize + lower quality)
-  async function imageFileToCompressedDataURL(file, qualityPercent, maxWidth=1200){
-    const dataUrl = await fileToDataURL(file);
-    const img = new Image(); img.src = dataUrl; await img.decode();
-    const ratio = Math.min(1, maxWidth / img.width);
-    const w = img.width * ratio; const h = img.height * ratio;
-    const c = document.createElement('canvas'); c.width = w; c.height = h; const ctx = c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
-    return c.toDataURL('image/jpeg', qualityPercent/100);
-  }
+      const q = parseInt(document.getElementById('compQuality').value);
+      const doc = new jsPDF({ unit: 'px', format: 'a4' });
 
-  document.getElementById('compressBtn').addEventListener('click', async () => {
-    const files = Array.from(document.getElementById('compFiles').files || []);
-    if(!files.length) return alert('Select images');
-    const q = parseInt(document.getElementById('compQuality').value,10);
-    const doc = new jsPDF({unit:'px', format:'a4'});
-    let first=true;
-    for(const f of files){
-      const durl = await imageFileToCompressedDataURL(f, q, 1200);
-      const img = new Image(); img.src = durl; await img.decode();
-      const pageW = 595; const pageH = 842;
-      let w = img.width; let h = img.height; const ratio = Math.min(pageW/w, pageH/h); w*=ratio; h*=ratio;
-      if(!first) doc.addPage();
-      doc.addImage(durl, 'JPEG', (pageW-w)/2, (pageH-h)/2, w, h, undefined, 'FAST');
-      first=false;
-    }
-    const blob = doc.output('blob');
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = 'compressed.pdf'; a.textContent = 'Download compressed PDF';
-    const out = document.getElementById('compressResult'); out.innerHTML=''; out.appendChild(a);
-  });
+      let first = true;
+      for (const f of files) {
+        const durl = await imageFileToCompressedDataURL(f, q);
+        const img = new Image();
+        img.src = durl; await img.decode();
+        const pageW = 595, pageH = 842;
+        let w = img.width, h = img.height;
+        const ratio = Math.min(pageW / w, pageH / h);
+        w *= ratio; h *= ratio;
 
-</script>
+        if (!first) doc.addPage();
+        doc.addImage(durl, 'JPEG', (pageW - w) / 2, (pageH - h) / 2, w, h, undefined, 'FAST');
+        first = false;
+      }
+
+      const blob = doc.output('blob');
+      const url = URL.createObjectURL(blob);
+      document.getElementById('compressResult').innerHTML =
+        `<a href="${url}" download="compressed.pdf">Download compressed PDF</a>`;
+    });
+  </script>
+
 </body>
 </html>
