@@ -1,333 +1,408 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="robots" content="index, follow" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Online PDF Tools — Convert · Merge · Split · Rotate · Watermark</title>
+<meta name="description" content="Free Online PDF Tools — convert images to PDF, merge PDFs, split, rotate, watermark and add page numbers. Everything runs in your browser.">
+<meta name="keywords" content="pdf tools, merge pdf, split pdf, rotate pdf, watermark pdf, image to pdf, compress pdf">
 
-  <!-- Main SEO -->
-  <title>Online PDF Tools – Free PDF Converter, Merge, Compress & Edit</title>
+<!-- Open Graph -->
+<meta property="og:title" content="Online PDF Tools — Free PDF Utilities">
+<meta property="og:description" content="Convert, merge, split, rotate, watermark and more — runs entirely in the browser.">
+<meta property="og:image" content="logo.png">
+<meta name="theme-color" content="#0b64d3">
 
-  <meta name="description"
-    content="Free online PDF tools to convert images to PDF, merge PDF files, compress PDF, and more. 100% private — everything runs in your browser. No upload required.">
-  <meta name="keywords"
-    content="pdf tools, merge pdf, compress pdf, image to pdf, photo to pdf, pdf combiner, online pdf converter, free pdf tools">
+<!-- CSS: Gradient Modern Blue + clean cards -->
+<style>
+  :root{
+    --accent:#0b64d3;
+    --accent-2:#1366d6;
+    --bg:#f6f9fc;
+    --card:#ffffff;
+    --muted:#6b7280;
+    --shadow: 0 10px 30px rgba(18,38,63,0.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter, Roboto, Arial, sans-serif;background:var(--bg);color:#07203a}
+  .topbar{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:18px 12px;color:white;display:flex;align-items:center;gap:12px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:64px;border-radius:8px;background:white;padding:8px}
+  .brand h1{margin:0;font-size:28px}
+  .nav{margin-left:auto;display:flex;gap:10px;align-items:center}
+  .nav a{color:white;text-decoration:none;font-weight:600;padding:8px 12px;border-radius:8px}
+  .nav a:hover{background:rgba(255,255,255,0.08)}
+  .container{max-width:1100px;margin:22px auto;padding:12px}
+  .hero{background:linear-gradient(180deg,rgba(11,100,211,0.06),transparent);padding:28px;border-radius:12px;margin-bottom:18px;text-align:center}
+  .hero h2{margin:6px 0 0;font-size:28px}
+  .hero p{color:var(--muted);margin:6px 0 0}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:var(--shadow);min-height:220px}
+  h3{margin:0 0 8px}
+  .small{font-size:13px;color:var(--muted)}
+  label{display:block;margin:10px 0 6px;font-weight:600}
+  input[type=file]{display:block}
+  select,input[type=text]{padding:8px;border-radius:8px;border:1px solid #e6eef7;width:100%}
+  button.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;border:none;padding:10px 14px;border-radius:10px;cursor:pointer;margin-top:10px}
+  .result{margin-top:10px}
+  .adbox{border:1px dashed #dbeafe;padding:12px;border-radius:8px;background:white;color:#0b4ca3;text-align:center;margin:18px 0}
+  .tools-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .chip{background:#eef6ff;padding:6px 10px;border-radius:999px;color:#0b4ca3;font-weight:600}
+  .footer{text-align:center;color:var(--muted);padding:24px 12px}
+  .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .small-muted{font-size:12px;color:#94a3b8}
+  .inline{display:inline-block}
+</style>
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Online PDF Tools – Free PDF Converter & Merge Tool">
-  <meta property="og:description"
-    content="Free PDF utilities: convert images to PDF, compress, merge, split & more. Completely private — works offline in your browser.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://keshavp1996.github.io/online-pdf-tools/">
-  <meta property="og:image" content="logo.png">
+<!-- JS libs -->
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Online PDF Tools – Fast PDF Utilities">
-  <meta name="twitter:description"
-    content="Fast & private PDF tools — convert, merge, compress, split, rotate and more.">
-  <meta name="twitter:image" content="logo.png">
-
-  <!-- Mobile color -->
-  <meta name="theme-color" content="#0b64d3" />
-
-  <!-- Styles -->
-  <style>
-    :root {
-      --accent: #0b64d3;
-      --muted: #6b7280;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Inter, Roboto, Arial, sans-serif;
-      margin: 0;
-      background: #f7fafc;
-      color: #0f172a;
-    }
-
-    header {
-      background: linear-gradient(90deg, var(--accent), #1366d6);
-      color: white;
-      padding: 28px 12px;
-      text-align: center;
-    }
-
-    header img {
-      height: 80px;
-      margin-bottom: 12px;
-    }
-
-    .container {
-      max-width: 980px;
-      margin: 20px auto;
-      padding: 12px;
-    }
-
-    .tools {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 18px;
-      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-      flex: 1;
-      min-width: 280px;
-    }
-
-    h1 {
-      margin: 0;
-    }
-
-    p.lead {
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    button {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 10px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    input[type=file] {
-      display: block;
-      margin: 8px 0;
-    }
-
-    .small {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    footer {
-      padding: 16px;
-      text-align: center;
-      color: var(--muted);
-      margin-top: 20px;
-    }
-
-    .row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .ad-box {
-      width: 100%;
-      background: #e5e7eb;
-      border: 1px dashed #9ca3af;
-      padding: 16px;
-      border-radius: 10px;
-      margin: 20px 0;
-      text-align: center;
-      color: #4b5563;
-      font-size: 14px;
-    }
-  </style>
-
-  <!-- PDF Libraries -->
-  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
-
 <body>
 
-  <header>
-    <img src="logo.png" alt="Online PDF Tools Logo">
-    <h1>Online PDF Tools</h1>
-    <p class="lead">Convert • Merge • Compress — 100% Private (Browser Only)</p>
-  </header>
-
-  <main class="container">
-
-    <!-- Ad placeholder -->
-    <div class="ad-box">
-      Google AdSense Banner (Will appear automatically after approval)
+  <!-- Top nav -->
+  <div class="topbar">
+    <div class="brand">
+      <img src="logo.png" alt="logo" onerror="this.style.display='none'">
+      <div>
+        <h1>Online PDF Tools</h1>
+        <div class="small">Convert · Merge · Split · Rotate · Watermark — Browser only</div>
+      </div>
     </div>
 
-    <section class="tools">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <a href="#convert">Image→PDF</a>
+      <a href="#merge">Merge</a>
+      <a href="#split">Split</a>
+      <a href="#rotate">Rotate</a>
+      <a href="#watermark">Watermark</a>
+      <a href="#pagenumber">Page Numbers</a>
+    </nav>
+  </div>
 
-      <!-- Image to PDF -->
-      <div class="card">
-        <h2>Image → PDF (Photo to PDF)</h2>
-        <p class="small">Convert multiple images into a single PDF file.</p>
-        <input id="imgFiles" type="file" accept="image/*" multiple />
-        <div class="row">
-          <label>Quality:</label>
-          <select id="imgQuality">
-            <option value="90">High</option>
-            <option value="70">Medium</option>
-            <option value="50">Low</option>
-          </select>
-        </div>
-        <button id="convertBtn">Convert to PDF</button>
-        <div id="img2pdfResult"></div>
+  <div class="container">
+    <div class="hero card">
+      <h2>Fast, Private PDF Tools — No Uploads</h2>
+      <p class="small">All processing happens in your browser. Works on mobile and desktop.</p>
+      <div class="tools-list" style="justify-content:center;margin-top:12px">
+        <span class="chip">Free</span><span class="chip">No Upload</span><span class="chip">Mobile Friendly</span>
+        <span class="chip">AdSense Ready</span>
       </div>
-
-      <!-- Merge PDF -->
-      <div class="card">
-        <h2>Merge PDFs</h2>
-        <p class="small">Combine 2 or more PDF files into one.</p>
-        <input id="pdfFiles" type="file" accept="application/pdf" multiple />
-        <button id="mergeBtn">Merge Now</button>
-        <div id="mergeResult"></div>
-      </div>
-
-      <!-- Compress -->
-      <div class="card">
-        <h2>Compress Images → PDF</h2>
-        <p class="small">Compress images and generate a small-size PDF.</p>
-        <input id="compFiles" type="file" accept="image/*" multiple />
-        <div class="row">
-          <label>Compression:</label>
-          <select id="compQuality">
-            <option value="60">60%</option>
-            <option value="40">40%</option>
-            <option value="25">25%</option>
-          </select>
-        </div>
-        <button id="compressBtn">Compress & Create PDF</button>
-        <div id="compressResult"></div>
-      </div>
-
-    </section>
-
-    <!-- Ad placeholder -->
-    <div class="ad-box">
-      Google AdSense (Auto Ads or Display Ad)
     </div>
 
-    <section class="card" style="margin-top:20px;">
-      <h2>Your Privacy Is Protected</h2>
-      <p class="small">All processing happens in your browser. No files are uploaded to any server. See our
-        <a href="privacy_policy.html">Privacy Policy</a>.
-      </p>
+    <div class="adbox">Google AdSense Banner (Place AdSense code here after approval)</div>
+
+    <!-- GRID: Image→PDF, Merge, Compress -->
+    <div class="grid">
+
+      <!-- Image → PDF -->
+      <section id="convert" class="card">
+        <h3>Image → PDF</h3>
+        <p class="small">Select 1 or more images (JPG/PNG) and convert them to a single PDF.</p>
+        <label>Choose images</label>
+        <input id="imgToPdf_files" type="file" accept="image/*" multiple>
+        <label>Quality</label>
+        <select id="imgToPdf_quality"><option value="0.9">High</option><option value="0.7">Medium</option><option value="0.5">Low</option></select>
+        <div><button class="primary" id="imgToPdf_btn">Convert to PDF</button></div>
+        <div id="imgToPdf_result" class="result"></div>
+      </section>
+
+      <!-- Merge PDFs -->
+      <section id="merge" class="card">
+        <h3>Merge PDFs</h3>
+        <p class="small">Select two or more PDF files to merge client-side.</p>
+        <label>Choose PDF files</label>
+        <input id="merge_files" type="file" accept="application/pdf" multiple>
+        <div><button class="primary" id="merge_btn">Merge PDFs</button></div>
+        <div id="merge_result" class="result"></div>
+      </section>
+
+      <!-- Compress Images → PDF -->
+      <section id="compress" class="card">
+        <h3>Compress Images → PDF</h3>
+        <p class="small">Resize + JPEG compress images into a small PDF for sharing.</p>
+        <label>Choose images</label>
+        <input id="compress_files" type="file" accept="image/*" multiple>
+        <label>Compression</label>
+        <select id="compress_quality"><option value="0.7">70%</option><option value="0.5">50%</option><option value="0.3">30%</option></select>
+        <div><button class="primary" id="compress_btn">Compress & Create PDF</button></div>
+        <div id="compress_result" class="result"></div>
+      </section>
+
+    </div> <!-- end grid -->
+
+    <div style="height:18px"></div>
+
+    <!-- GRID 2: Split, Rotate, Watermark -->
+    <div class="grid">
+
+      <!-- Split PDF -->
+      <section id="split" class="card">
+        <h3>Split PDF (Extract pages)</h3>
+        <p class="small">Upload a PDF, select pages, and create a new PDF with chosen pages.</p>
+        <label>Choose single PDF</label>
+        <input id="split_file" type="file" accept="application/pdf">
+        <label>Pages to extract (e.g. 1,3-5)</label>
+        <input id="split_pages" type="text" placeholder="1,3-5">
+        <div><button class="primary" id="split_btn">Create Extract</button></div>
+        <div id="split_result" class="result"></div>
+      </section>
+
+      <!-- Rotate PDF pages -->
+      <section id="rotate" class="card">
+        <h3>Rotate PDF Pages</h3>
+        <p class="small">Rotate all pages or specific pages by 90° steps.</p>
+        <label>Choose PDF</label>
+        <input id="rotate_file" type="file" accept="application/pdf">
+        <label>Pages to rotate (empty = all) e.g. 1,3 or 2-4</label>
+        <input id="rotate_pages" type="text" placeholder="">
+        <label>Rotation</label>
+        <select id="rotate_deg"><option value="90">90°</option><option value="180">180°</option><option value="270">270°</option></select>
+        <div><button class="primary" id="rotate_btn">Rotate & Download</button></div>
+        <div id="rotate_result" class="result"></div>
+      </section>
+
+      <!-- Watermark -->
+      <section id="watermark" class="card">
+        <h3>Add Watermark</h3>
+        <p class="small">Add a text watermark to every page (position is centered).</p>
+        <label>Choose PDF</label>
+        <input id="wm_file" type="file" accept="application/pdf">
+        <label>Watermark text</label>
+        <input id="wm_text" type="text" placeholder="Sample watermark">
+        <label>Opacity (0.1 low - 1 high)</label>
+        <input id="wm_opacity" type="text" placeholder="0.2" value="0.2">
+        <div><button class="primary" id="wm_btn">Add Watermark</button></div>
+        <div id="wm_result" class="result"></div>
+      </section>
+
+    </div> <!-- end grid 2 -->
+
+    <div style="height:18px"></div>
+
+    <!-- Page numbers -->
+    <div class="card">
+      <h3 id="pagenumber">Add Page Numbers</h3>
+      <p class="small">Stamp page numbers on each page (e.g. Page 1 of N).</p>
+      <label>Choose PDF</label>
+      <input id="pn_file" type="file" accept="application/pdf">
+      <label>Format (use {p} for page, {n} for total)</label>
+      <input id="pn_format" type="text" value="Page {p} of {n}">
+      <div style="margin-top:10px"><button class="primary" id="pn_btn">Add Page Numbers</button></div>
+      <div id="pn_result" class="result"></div>
+    </div>
+
+    <div style="height:18px"></div>
+    <div class="adbox">AdSense (Auto Ads / Display) — place code in header & ad slots</div>
+
+    <div style="height:18px"></div>
+
+    <section class="card">
+      <h3 class="inline">Notes & Limitations</h3>
+      <p class="small-muted">Some advanced conversions (PDF→Word/Excel/PowerPoint, OCR) need server-side processing or paid APIs. The tools above are full client-side and preserve privacy because files never leave your browser.</p>
+      <p class="small-muted">If you want server features I can integrate free/paid APIs and show how to charge for pro features.</p>
     </section>
 
-  </main>
+    <div style="height:30px"></div>
 
-  <footer>
-    <small>© 2025 Online PDF Tools — Free PDF Utilities</small>
-  </footer>
+    <div class="footer">© 2025 Online PDF Tools — Built for privacy & speed.</div>
+  </div>
 
-  <!-- JS Code (no changes from your original logic) -->
-  <script>
-    const { jsPDF } = window.jspdf;
-
-    function fileToDataURL(file) {
-      return new Promise((res, rej) => {
-        const r = new FileReader();
-        r.onload = () => res(r.result);
-        r.onerror = rej;
-        r.readAsDataURL(file);
-      });
+<!-- --- JS IMPLEMENTATION --- -->
+<script>
+/* Utility: parse page list string like "1,3-5" into zero-based indices */
+function parsePagesInput(str, pageCount) {
+  if(!str || !str.trim()) return null; // null means all pages
+  const parts = str.split(',');
+  const res = new Set();
+  for(const p of parts){
+    const t = p.trim();
+    if(t.includes('-')){
+      const [a,b] = t.split('-').map(x=>parseInt(x,10));
+      if(isNaN(a)||isNaN(b)) continue;
+      for(let i=a;i<=b;i++){ if(i>=1 && i<=pageCount) res.add(i-1); }
+    } else {
+      const n = parseInt(t,10);
+      if(!isNaN(n) && n>=1 && n<=pageCount) res.add(n-1);
     }
+  }
+  return Array.from(res).sort((a,b)=>a-b);
+}
 
-    document.getElementById('convertBtn').addEventListener('click', async () => {
-      const files = [...document.getElementById('imgFiles').files];
-      if (!files.length) return alert('Select images first');
-      const quality = parseInt(document.getElementById('imgQuality').value);
-      const doc = new jsPDF({ unit: 'px', format: 'a4' });
+/* Helper: download blob */
+function downloadBlob(blob, filename){
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a);
+  a.click(); a.remove(); URL.revokeObjectURL(url);
+}
 
-      let first = true;
-      for (const f of files) {
-        const dataUrl = await fileToDataURL(f);
-        const img = new Image();
-        img.src = dataUrl;
-        await img.decode();
-        const pageW = 595, pageH = 842;
-        let w = img.width, h = img.height;
-        const ratio = Math.min(pageW / w, pageH / h);
-        w *= ratio; h *= ratio;
-        if (!first) doc.addPage();
-        doc.addImage(dataUrl, 'JPEG', (pageW - w) / 2, (pageH - h) / 2, w, h, undefined, 'FAST');
-        first = false;
-      }
-      const blob = doc.output('blob');
-      const url = URL.createObjectURL(blob);
-      document.getElementById('img2pdfResult').innerHTML =
-        `<a href="${url}" download="images.pdf">Download PDF</a>`;
+/* IMAGE -> PDF (jsPDF) */
+document.getElementById('imgToPdf_btn').addEventListener('click', async ()=>{
+  const files = Array.from(document.getElementById('imgToPdf_files').files || []);
+  if(!files.length){ alert('Select images'); return; }
+  const quality = parseFloat(document.getElementById('imgToPdf_quality').value || 0.9);
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'px',format:'a4'});
+  let first=true;
+  for(const f of files){
+    const dataUrl = await new Promise(r=>{
+      const fr = new FileReader(); fr.onload=()=>r(fr.result); fr.readAsDataURL(f);
     });
+    const img = new Image(); img.src = dataUrl; await img.decode();
+    const pageW=595, pageH=842;
+    let w=img.width, h=img.height; const ratio=Math.min(pageW/w,pageH/h); w*=ratio; h*=ratio;
+    if(!first) doc.addPage();
+    doc.addImage(dataUrl,'JPEG',(pageW-w)/2,(pageH-h)/2,w,h,undefined,'FAST');
+    first=false;
+  }
+  const blob = doc.output('blob');
+  document.getElementById('imgToPdf_result').innerHTML = '<a download="images.pdf">Preparing...</a>';
+  downloadBlob(blob,'images-to-pdf.pdf');
+});
 
-    document.getElementById('mergeBtn').addEventListener('click', async () => {
-      const files = [...document.getElementById('pdfFiles').files];
-      if (!files.length) return alert('Select PDF files');
-
-      const mergedPdf = await PDFLib.PDFDocument.create();
-      for (const f of files) {
-        const arr = await f.arrayBuffer();
-        const pdf = await PDFLib.PDFDocument.load(arr);
-        const copied = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-        copied.forEach(p => mergedPdf.addPage(p));
-      }
-      const bytes = await mergedPdf.save();
-      const blob = new Blob([bytes], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
-      document.getElementById('mergeResult').innerHTML =
-        `<a href="${url}" download="merged.pdf">Download merged PDF</a>`;
+/* COMPRESS IMAGES -> PDF (resamples and recompresses images) */
+document.getElementById('compress_btn').addEventListener('click', async ()=>{
+  const files = Array.from(document.getElementById('compress_files').files || []);
+  if(!files.length){ alert('Select images'); return; }
+  const q = parseFloat(document.getElementById('compress_quality').value || 0.7);
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'px',format:'a4'});
+  let first=true;
+  for(const f of files){
+    const dataUrl = await new Promise(r=>{
+      const fr = new FileReader(); fr.onload=()=>r(fr.result); fr.readAsDataURL(f);
     });
+    const img = new Image(); img.src = dataUrl; await img.decode();
+    // resize large images to max 1200px
+    const maxW = 1200;
+    const ratio = Math.min(1, maxW / img.width);
+    const w = img.width * ratio, h = img.height * ratio;
+    const c = document.createElement('canvas'); c.width=w; c.height=h;
+    const ctx = c.getContext('2d'); ctx.drawImage(img,0,0,w,h);
+    const jpegData = c.toDataURL('image/jpeg', q);
+    const pageW=595, pageH=842; let ww=w, hh=h; const fit = Math.min(pageW/ww,pageH/hh); ww*=fit; hh*=fit;
+    if(!first) doc.addPage();
+    doc.addImage(jpegData,'JPEG',(pageW-ww)/2,(pageH-hh)/2,ww,hh,'FAST');
+    first=false;
+  }
+  const blob = doc.output('blob');
+  downloadBlob(blob,'compressed-images.pdf');
+});
 
-    async function imageFileToCompressedDataURL(file, qualityPercent, maxWidth = 1200) {
-      const dataUrl = await fileToDataURL(file);
-      const img = new Image();
-      img.src = dataUrl;
-      await img.decode();
+/* MERGE PDFs (pdf-lib) */
+document.getElementById('merge_btn').addEventListener('click', async ()=>{
+  const files = Array.from(document.getElementById('merge_files').files || []);
+  if(!files.length){ alert('Select PDF files'); return; }
+  const merged = await PDFLib.PDFDocument.create();
+  for(const f of files){
+    const arr = await f.arrayBuffer();
+    const pdf = await PDFLib.PDFDocument.load(arr);
+    const copied = await merged.copyPages(pdf, pdf.getPageIndices());
+    copied.forEach(p=>merged.addPage(p));
+  }
+  const bytes = await merged.save();
+  const blob = new Blob([bytes],{type:'application/pdf'});
+  downloadBlob(blob,'merged.pdf');
+});
 
-      const ratio = Math.min(1, maxWidth / img.width);
-      const w = img.width * ratio;
-      const h = img.height * ratio;
+/* SPLIT / EXTRACT PAGES (pdf-lib) */
+document.getElementById('split_btn').addEventListener('click', async ()=>{
+  const f = (document.getElementById('split_file').files || [])[0];
+  if(!f){ alert('Select a PDF'); return; }
+  const pagesInput = document.getElementById('split_pages').value;
+  const arr = await f.arrayBuffer();
+  const pdf = await PDFLib.PDFDocument.load(arr);
+  const pageCount = pdf.getPageCount();
+  const pages = parsePagesInput(pagesInput, pageCount);
+  if(pages === null || pages.length === 0){ alert('No pages matched'); return; }
+  const outDoc = await PDFLib.PDFDocument.create();
+  const copied = await outDoc.copyPages(pdf, pages);
+  copied.forEach(p=>outDoc.addPage(p));
+  const bytes = await outDoc.save();
+  downloadBlob(new Blob([bytes],{type:'application/pdf'}),'extracted.pdf');
+});
 
-      const c = document.createElement('canvas');
-      c.width = w; c.height = h;
-
-      const ctx = c.getContext('2d');
-      ctx.drawImage(img, 0, 0, w, h);
-
-      return c.toDataURL('image/jpeg', qualityPercent / 100);
+/* ROTATE pages (pdf-lib) */
+document.getElementById('rotate_btn').addEventListener('click', async ()=>{
+  const f = (document.getElementById('rotate_file').files || [])[0];
+  if(!f){ alert('Select a PDF'); return; }
+  const arr = await f.arrayBuffer();
+  const pdf = await PDFLib.PDFDocument.load(arr);
+  const pageCount = pdf.getPageCount();
+  const pagesInput = document.getElementById('rotate_pages').value;
+  const pages = parsePagesInput(pagesInput, pageCount);
+  const deg = parseInt(document.getElementById('rotate_deg').value || '90',10);
+  const rotateMap = {90:PDFLib.degrees(90),180:PDFLib.degrees(180),270:PDFLib.degrees(270)};
+  for(let i=0;i<pageCount;i++){
+    if(pages===null || pages.includes(i)){
+      const p = pdf.getPage(i);
+      // current rotation plus new
+      const cur = p.getRotation()?.angle || 0;
+      p.setRotation(PDFLib.degrees((cur + deg) % 360));
     }
+  }
+  const bytes = await pdf.save();
+  downloadBlob(new Blob([bytes],{type:'application/pdf'}),'rotated.pdf');
+});
 
-    document.getElementById('compressBtn').addEventListener('click', async () => {
-      const files = [...document.getElementById('compFiles').files];
-      if (!files.length) return alert('Select images first');
-
-      const q = parseInt(document.getElementById('compQuality').value);
-      const doc = new jsPDF({ unit: 'px', format: 'a4' });
-
-      let first = true;
-      for (const f of files) {
-        const durl = await imageFileToCompressedDataURL(f, q);
-        const img = new Image();
-        img.src = durl; await img.decode();
-        const pageW = 595, pageH = 842;
-        let w = img.width, h = img.height;
-        const ratio = Math.min(pageW / w, pageH / h);
-        w *= ratio; h *= ratio;
-
-        if (!first) doc.addPage();
-        doc.addImage(durl, 'JPEG', (pageW - w) / 2, (pageH - h) / 2, w, h, undefined, 'FAST');
-        first = false;
-      }
-
-      const blob = doc.output('blob');
-      const url = URL.createObjectURL(blob);
-      document.getElementById('compressResult').innerHTML =
-        `<a href="${url}" download="compressed.pdf">Download compressed PDF</a>`;
+/* WATERMARK (text overlay centered) */
+document.getElementById('wm_btn').addEventListener('click', async ()=>{
+  const f = (document.getElementById('wm_file').files || [])[0];
+  if(!f){ alert('Select a PDF'); return; }
+  const text = (document.getElementById('wm_text').value || '').trim();
+  if(!text){ alert('Enter watermark text'); return; }
+  const opacity = parseFloat(document.getElementById('wm_opacity').value || '0.2');
+  const arr = await f.arrayBuffer();
+  const pdf = await PDFLib.PDFDocument.load(arr);
+  const helvetica = await pdf.embedFont(PDFLib.StandardFonts.Helvetica);
+  const pageCount = pdf.getPageCount();
+  for(let i=0;i<pageCount;i++){
+    const p = pdf.getPage(i);
+    const { width, height } = p.getSize();
+    const fontSize = Math.min(48, Math.max(20, width / 12));
+    p.drawText(text, {
+      x: width / 2 - (helvetica.widthOfTextAtSize(text,fontSize)/2),
+      y: height / 2 - (fontSize/2),
+      size: fontSize,
+      font: helvetica,
+      color: PDFLib.rgb(0.5,0.5,0.5),
+      rotate: PDFLib.degrees(-15),
+      opacity: opacity
     });
-  </script>
+  }
+  const bytes = await pdf.save();
+  downloadBlob(new Blob([bytes],{type:'application/pdf'}),'watermarked.pdf');
+});
 
+/* ADD PAGE NUMBERS */
+document.getElementById('pn_btn').addEventListener('click', async ()=>{
+  const f = (document.getElementById('pn_file').files || [])[0];
+  if(!f){ alert('Select a PDF'); return; }
+  const fmt = (document.getElementById('pn_format').value || 'Page {p} of {n}');
+  const arr = await f.arrayBuffer();
+  const pdf = await PDFLib.PDFDocument.load(arr);
+  const helvetica = await pdf.embedFont(PDFLib.StandardFonts.Helvetica);
+  const pageCount = pdf.getPageCount();
+  for(let i=0;i<pageCount;i++){
+    const p = pdf.getPage(i);
+    const { width } = p.getSize();
+    const text = fmt.replace('{p}', String(i+1)).replace('{n}', String(pageCount));
+    const fontSize = 12;
+    p.drawText(text, {
+      x: width - 60,
+      y: 20,
+      size: fontSize,
+      font: helvetica,
+      color: PDFLib.rgb(0.2,0.2,0.2)
+    });
+  }
+  const bytes = await pdf.save();
+  downloadBlob(new Blob([bytes],{type:'application/pdf'}),'pagenums.pdf');
+});
+
+</script>
 </body>
 </html>
