@@ -1,164 +1,390 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="robots" content="index, follow" />
 
-<title>Online PDF Tools</title>
+<title>Online PDF Tools — Convert, Merge, Compress, Edit</title>
+<meta name="description" content="Free Online PDF Tools: convert images to PDF, merge PDFs, compress files, edit pages and more. 100% browser-based and private.">
+<meta name="keywords" content="online pdf tools, pdf editor, merge pdf, compress pdf, image to pdf, rearrange pdf pages, browser pdf tool">
 
-<!-- Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta property="og:title" content="Online PDF Tools — Free PDF Editor & Converter" />
+<meta property="og:description" content="Free, secure, private PDF tools. Convert, merge, compress and edit PDF pages — works offline in your browser!" />
+<meta property="og:type" content="website" />
+<meta name="theme-color" content="#0b64d3">
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- PDF Libraries -->
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-body {
-    font-family: "Poppins", sans-serif;
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--text);
-    transition: 0.3s ease-in-out;
-}
-:root {
-    --bg: #f6f6f9;
-    --text: #111;
-    --card: #ffffff;
-    --accent: #0066ff;
-}
-.dark-mode {
-    --bg: #0d1117;
-    --text: #e6e6e6;
-    --card: #161b22;
-    --accent: #1f6feb;
+:root{
+  --accent:#0b64d3;
+  --muted:#6b7280;
+  --radius:14px;
+  --bg:#f4f7fb;
 }
 
-/* Header */
-header {
-    background: var(--card);
-    padding: 15px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 10;
+/* RESET */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,Roboto,Arial,sans-serif;background:var(--bg);color:#0f172a}
+
+/* TOP BAR */
+.topbar{
+  background:#fff;
+  padding:16px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;top:0;z-index:10;
+  box-shadow:0 4px 12px rgba(0,0,0,0.10);
 }
-.logo {
-    font-size: 23px;
-    font-weight: 600;
-}
-nav a {
-    margin: 0 12px;
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 500;
+.logo{
+  font-size:22px;
+  font-weight:700;
+  color:var(--accent);
 }
 
-/* Dark mode button */
-.dark-btn {
-    background: var(--accent);
-    color: #fff;
-    padding: 8px 14px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
+/* NAV */
+.nav{
+  display:flex;
+  gap:14px;
+}
+.nav a{
+  padding:8px 14px;
+  background:#e2e8f0;
+  text-decoration:none;
+  color:#0f172a;
+  border-radius:var(--radius);
+  font-size:14px;
+}
+.nav a:hover{
+  background:var(--accent);
+  color:#fff;
 }
 
-/* Tools Grid */
-.tools-container {
-    padding: 30px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    gap: 20px;
-}
-.tool-card {
-    background: var(--card);
-    padding: 25px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: 0.2s;
-    cursor: pointer;
-}
-.tool-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-}
-.tool-card i {
-    font-size: 45px;
-    margin-bottom: 8px;
-    color: var(--accent);
+/* LAYOUT */
+.container{
+  max-width:1100px;
+  margin:20px auto;
+  padding:10px;
 }
 
-/* Footer */
-footer {
-    background: var(--card);
-    padding: 20px;
-    text-align: center;
-    margin-top: 20px;
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+  gap:20px;
 }
+
+/* CARD */
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:var(--radius);
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  transition:0.15s ease;
+}
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 40px rgba(0,0,0,0.12);
+}
+.card h3{
+  margin-bottom:8px;
+}
+.small{
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:12px;
+}
+
+/* BUTTONS */
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:var(--radius);
+  cursor:pointer;
+  background:var(--accent);
+  color:white;
+  font-weight:600;
+  font-size:15px;
+  transition:0.2s;
+}
+button:hover{
+  opacity:.9;
+  transform:translateY(-2px);
+}
+
+/* FORM ELEMENTS */
+input,select{
+  width:100%;
+  padding:10px;
+  margin:6px 0 10px 0;
+  border-radius:var(--radius);
+  border:1px solid #cbd5e1;
+  background:#f9fbff;
+}
+
+/* RESULT AREA */
+.result a{
+  display:inline-block;
+  margin-top:10px;
+  color:var(--accent);
+  font-weight:600;
+}
+
+/* FOOTER */
+footer{
+  margin:40px 0;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+}
+
 </style>
-
 </head>
 <body>
 
-<header>
-    <div class="logo">📄 Online PDF Tools</div>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Tools</a>
-        <a href="#">Contact</a>
-    </nav>
-    <button class="dark-btn" onclick="toggleDark()">🌙 Dark Mode</button>
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="logo">Online PDF Tools</div>
+
+  <nav class="nav">
+    <a href="#img2pdf">Image → PDF</a>
+    <a href="#merge">Merge PDFs</a>
+    <a href="#compress">Compress</a>
+    <a href="#editor">PDF Editor</a>
+  </nav>
 </header>
 
-<!-- Tools Section -->
-<div class="tools-container">
+<main class="container">
 
-    <div class="tool-card">
-        <i class="fa-solid fa-file-pdf"></i>
-        <h3>PDF to JPG</h3>
-    </div>
+<h2 style="margin-bottom:15px;">All Tools</h2>
 
-    <div class="tool-card">
-        <i class="fa-solid fa-image"></i>
-        <h3>JPG to PDF</h3>
-    </div>
+<div class="grid">
 
-    <div class="tool-card">
-        <i class="fa-solid fa-scissors"></i>
-        <h3>PDF Split</h3>
-    </div>
+<!-- IMAGE TO PDF -->
+<section id="img2pdf" class="card">
+  <h3>Image → PDF</h3>
+  <p class="small">Convert JPG, PNG to PDF easily. 100% browser-based.</p>
 
-    <div class="tool-card">
-        <i class="fa-solid fa-object-group"></i>
-        <h3>Merge PDF</h3>
-    </div>
+  <label>Select Images</label>
+  <input id="imgFiles" type="file" accept="image/*" multiple>
 
-    <div class="tool-card">
-        <i class="fa-solid fa-file-pen"></i>
-        <h3>Compress PDF</h3>
-    </div>
+  <label>Image Quality</label>
+  <select id="imgQuality">
+    <option value="90">High</option>
+    <option value="70">Medium</option>
+    <option value="50">Low</option>
+  </select>
 
-    <div class="tool-card">
-        <i class="fa-solid fa-lock"></i>
-        <h3>Protect PDF</h3>
-    </div>
+  <button id="convertBtn">Convert to PDF</button>
+  <div id="img2pdfResult" class="result"></div>
+</section>
+
+<!-- MERGE PDF -->
+<section id="merge" class="card">
+  <h3>Merge PDFs</h3>
+  <p class="small">Combine multiple PDFs into one.</p>
+
+  <input id="pdfFiles" type="file" accept="application/pdf" multiple>
+  <button id="mergeBtn">Merge PDFs</button>
+  <div id="mergeResult" class="result"></div>
+</section>
+
+<!-- COMPRESS PDF -->
+<section id="compress" class="card">
+  <h3>Compress Images → PDF</h3>
+  <p class="small">Create a smaller-size PDF.</p>
+
+  <input id="compFiles" type="file" accept="image/*" multiple>
+
+  <label>Compression Level</label>
+  <select id="compQuality">
+    <option value="60">60%</option>
+    <option value="40">40%</option>
+    <option value="25">25%</option>
+  </select>
+
+  <button id="compressBtn">Compress & Create PDF</button>
+  <div id="compressResult" class="result"></div>
+</section>
+
+<!-- PDF EDITOR -->
+<section id="editor" class="card">
+  <h3>PDF Editor (Reorder Pages)</h3>
+  <p class="small">Rearrange pages: example: 3,1,2</p>
+
+  <label>Select PDF</label>
+  <input id="edit_file" type="file" accept="application/pdf">
+
+  <label>New Page Order</label>
+  <input id="edit_pages" type="text" placeholder="Example: 3,1,2">
+
+  <button id="edit_btn">Apply & Download</button>
+  <div id="edit_result" class="result"></div>
+</section>
 
 </div>
+</main>
 
 <footer>
-    © 2025 Online PDF Tools — All Rights Reserved
+  © 2025 Online PDF Tools — 100% Free. Private. Browser-Based.
 </footer>
 
 <script>
-// Dark mode toggle
-function toggleDark() {
-    document.body.classList.toggle('dark-mode');
+const { jsPDF } = window.jspdf;
+
+/* Helper: file → dataURL */
+function fileToDataURL(file){
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
 }
+
+/* ==============================
+   IMAGE TO PDF
+   ============================== */
+document.getElementById("convertBtn").addEventListener("click", async () => {
+  const files = [...document.getElementById("imgFiles").files];
+  if (!files.length) return alert("Select images first!");
+
+  const quality = parseInt(document.getElementById("imgQuality").value);
+  const doc = new jsPDF({ unit: "px", format: "a4" });
+
+  let first = true;
+
+  for (const f of files) {
+    const dataUrl = await fileToDataURL(f);
+    const img = new Image();
+    img.src = dataUrl;
+    await img.decode();
+
+    const pageW = 595;
+    const pageH = 842;
+    let w = img.width, h = img.height;
+    const ratio = Math.min(pageW / w, pageH / h);
+    w *= ratio; h *= ratio;
+
+    if (!first) doc.addPage();
+    doc.addImage(dataUrl, "JPEG", (pageW-w)/2, (pageH-h)/2, w, h, undefined, "FAST");
+    first = false;
+  }
+
+  const blob = doc.output("blob");
+  const url = URL.createObjectURL(blob);
+  document.getElementById("img2pdfResult").innerHTML =
+    `<a href="${url}" download="images.pdf">Download PDF</a>`;
+});
+
+/* ==============================
+   MERGE PDFs
+   ============================== */
+document.getElementById("mergeBtn").addEventListener("click", async () => {
+  const files = [...document.getElementById("pdfFiles").files];
+  if (!files.length) return alert("Select PDFs");
+
+  const merged = await PDFLib.PDFDocument.create();
+
+  for (const f of files) {
+    const arr = await f.arrayBuffer();
+    const pdf = await PDFLib.PDFDocument.load(arr);
+    const pages = await merged.copyPages(pdf, pdf.getPageIndices());
+    pages.forEach(p => merged.addPage(p));
+  }
+
+  const bytes = await merged.save();
+  const url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
+  document.getElementById("mergeResult").innerHTML =
+    `<a href="${url}" download="merged.pdf">Download merged.pdf</a>`;
+});
+
+/* ==============================
+   COMPRESS → PDF
+   ============================== */
+async function compressImage(file, q, maxW=1200){
+  const url = await fileToDataURL(file);
+  const img = new Image();
+  img.src = url;
+  await img.decode();
+
+  const ratio = Math.min(1, maxW / img.width);
+  const w = img.width * ratio, h = img.height * ratio;
+
+  const c = document.createElement("canvas");
+  c.width = w; c.height = h;
+  c.getContext("2d").drawImage(img,0,0,w,h);
+
+  return c.toDataURL("image/jpeg", q/100);
+}
+
+document.getElementById("compressBtn").addEventListener("click", async () => {
+  const files = [...document.getElementById("compFiles").files];
+  if (!files.length) return alert("Select images");
+
+  const q = parseInt(document.getElementById("compQuality").value);
+  const doc = new jsPDF({ unit:"px", format:"a4" });
+
+  let first = true;
+
+  for(const f of files){
+    const durl = await compressImage(f, q);
+    const img = new Image();
+    img.src = durl;
+    await img.decode();
+
+    const pageW = 595, pageH=842;
+    let w = img.width, h = img.height;
+    const ratio = Math.min(pageW/w, pageH/h);
+    w*=ratio; h*=ratio;
+
+    if(!first) doc.addPage();
+    doc.addImage(durl, "JPEG", (pageW-w)/2, (pageH-h)/2, w, h);
+    first=false;
+  }
+
+  const blob = doc.output("blob");
+  const url = URL.createObjectURL(blob);
+  document.getElementById("compressResult").innerHTML =
+    `<a href="${url}" download="compressed.pdf">Download compressed.pdf</a>`;
+});
+
+/* ==============================
+   PDF EDITOR — REORDER PAGES
+   ============================== */
+document.getElementById("edit_btn").addEventListener("click", async () => {
+  const f = document.getElementById("edit_file").files[0];
+  if (!f) return alert("Select a PDF first");
+
+  const arr = await f.arrayBuffer();
+  const pdf = await PDFLib.PDFDocument.load(arr);
+  const total = pdf.getPageCount();
+
+  const orderText = document.getElementById("edit_pages").value.trim();
+  if (!orderText) return alert("Enter new page order");
+
+  const order = orderText.split(",").map(x => parseInt(x.trim(),10)-1);
+
+  if (order.some(n => isNaN(n) || n < 0 || n >= total)) {
+    alert("Invalid page numbers");
+    return;
+  }
+
+  const out = await PDFLib.PDFDocument.create();
+  const pages = await out.copyPages(pdf, order);
+  pages.forEach(p => out.addPage(p));
+
+  const bytes = await out.save();
+  const url = URL.createObjectURL(new Blob([bytes], {type:"application/pdf"}));
+
+  document.getElementById("edit_result").innerHTML =
+    `<a href="${url}" download="edited.pdf">Download edited.pdf</a>`;
+});
+
 </script>
 
 </body>
